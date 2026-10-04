@@ -1,0 +1,162 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>UNKNOWN → INEVITABLE</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  html,body{margin:0;height:100%;background:#000;overflow:hidden}
+  canvas{display:block;width:100vw;height:100vh;object-fit:contain;background:#000}
+  #fps{position:fixed;left:12px;bottom:10px;color:#fff;font:20px monospace;background:#000;padding:2px 6px;display:none}
+</style>
+</head>
+<body>
+<canvas id="c" width="1920" height="1080"></canvas>
+<div id="fps"></div>
+<script>
+"use strict";
+var DATA = {"chars":"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#$%&@*+=<>/?!{}[]^~:;\u00c9. ","nrand":57,"order":[[42,128,10,15],[41,76,6,29],[46,120,9,36],[46,179,16,7],[45,173,16,14],[39,15,1,47],[39,114,9,37],[41,14,1,50],[42,46,4,1],[42,89,7,51],[42,96,7,24],[43,19,1,26],[40,113,9,4],[38,122,9,35],[41,5,0,12],[39,26,2,28],[42,130,10,24],[40,74,6,44],[42,123,9,35],[43,111,8,27],[46,163,14,21],[44,79,6,52],[38,113,9,3],[42,77,6,27],[43,94,7,38],[40,133,11,24],[45,81,6,47],[43,180,17,9],[40,13,1,26],[44,74,6,11],[40,58,5,8],[42,97,7,27],[41,67,5,24],[42,95,7,9],[44,54,4,32],[45,50,4,8],[46,122,9,33],[46,112,8,32],[44,162,14,51],[43,144,12,35],[38,170,15,34],[46,142,12,23],[45,135,11,1],[42,150,13,5],[45,149,13,29],[39,30,2,36],[42,36,3,40],[42,186,17,37],[45,22,1,15],[46,22,1,24],[39,175,16,8],[46,6,0,1],[39,52,4,21],[42,4,0,44],[41,78,6,55],[40,158,14,37],[39,148,13,0],[42,98,7,27],[42,101,7,21],[40,117,9,7],[45,143,12,38],[46,177,16,36],[43,164,15,45],[44,29,2,49],[42,122,9,39],[39,122,9,54],[46,181,17,2],[44,63,5,51],[39,24,2,5],[40,166,15,12],[38,167,15,11],[41,135,11,42],[43,110,8,25],[40,6,0,28],[43,114,9,45],[42,118,9,34],[44,12,0,6],[45,4,0,9],[41,166,15,42],[43,185,17,24],[38,76,6,9],[41,61,5,45],[46,150,13,22],[43,102,7,8],[45,127,10,5],[42,24,2,37],[45,54,4,42],[40,114,9,48],[42,171,15,18],[40,15,1,49],[39,31,2,2],[46,154,14,49],[42,43,3,17],[44,126,10,35],[38,153,13,38],[39,143,12,54],[41,122,9,3],[40,164,15,40],[39,165,15,46],[44,182,17,43],[42,25,2,9],[44,70,5,12],[44,43,3,53],[45,20,1,36],[41,142,12,4],[41,79,6,24],[42,138,11,52],[39,124,10,21],[39,13,1,13],[39,37,3,15],[45,82,6,7],[45,121,9,7],[42,45,4,30],[43,18,1,48],[44,28,2,3],[42,56,4,47],[44,13,1,42],[38,175,16,46],[42,23,1,19],[42,35,3,50],[38,33,2,16],[38,126,10,1],[43,158,14,13],[41,175,16,49],[43,29,2,13],[43,109,8,11],[44,161,14,55],[42,22,1,19],[43,36,3,27],[44,142,12,17],[40,143,12,25],[41,75,6,24],[43,117,9,39],[45,151,13,53],[41,98,7,47],[43,166,15,13],[40,135,11,24],[39,185,17,4],[40,71,5,23],[39,126,10,6],[44,181,17,15],[43,25,2,50],[38,182,17,37],[45,123,9,26],[39,84,6,1],[39,183,17,25],[40,59,5,39],[46,169,15,56],[42,111,8,55],[39,38,3,16],[45,160,14,11],[40,66,5,17],[43,22,1,25],[38,125,10,13],[44,14,1,47],[39,132,11,35],[44,124,10,28],[46,178,16,25],[42,37,3,41],[41,110,8,51],[40,170,15,27],[42,136,11,54],[44,44,3,8],[38,64,5,39],[43,113,9,45],[41,82,6,13],[39,12,0,8],[39,133,11,29],[45,172,15,41],[39,67,5,5],[46,81,6,49],[39,127,10,49],[42,5,0,30],[43,51,4,40],[38,14,1,27],[45,136,11,35],[42,21,1,12],[44,6,0,46],[38,24,2,46],[42,185,17,13],[43,89,7,36],[39,128,10,8],[45,6,0,37],[43,56,4,12],[40,53,4,40],[40,126,10,30],[38,111,8,16],[40,142,12,1],[42,137,11,39],[46,182,17,6],[42,6,0,41],[46,155,14,20],[39,129,10,45],[39,123,9,5],[38,11,0,18],[38,184,17,30],[41,160,14,44],[42,38,3,47],[43,82,6,14],[38,174,16,56],[38,181,17,43],[44,84,6,38],[43,61,5,38],[38,23,1,51],[42,71,5,4],[41,118,9,19],[42,44,3,22],[43,128,10,8],[42,59,5,48],[44,20,1,17],[46,23,1,5],[39,50,4,9],[41,44,3,4],[39,149,13,20],[44,144,12,25],[39,109,8,9],[46,43,3,33],[41,55,4,47],[38,127,10,4],[41,30,2,39],[38,25,2,46],[40,134,11,39],[43,40,3,45],[39,159,14,2],[42,103,7,56],[42,149,13,23],[38,164,15,24],[39,74,6,54],[40,35,3,13],[39,64,5,38],[44,56,4,47],[39,169,15,39],[39,167,15,37],[38,82,6,6],[41,70,5,29],[41,158,14,18],[39,14,1,48],[38,148,13,22],[38,128,10,43],[41,116,9,39],[38,12,0,26],[43,172,15,14],[41,43,3,3],[38,35,3,45],[38,110,8,47],[38,129,10,8],[39,111,8,33],[43,96,7,55],[41,77,6,40],[46,156,14,39],[43,15,1,11],[40,110,8,39],[42,52,4,34],[42,27,2,2],[45,185,17,50],[39,83,6,37],[41,28,2,16],[46,53,4,16],[39,184,17,33],[43,171,15,44],[39,121,9,9],[40,43,3,48],[41,22,1,20],[45,109,8,55],[41,113,9,7],[46,185,17,25],[44,137,11,45],[42,99,7,9],[44,22,1,55],[45,8,0,11],[46,143,12,49],[40,12,0,55],[39,180,17,35],[41,48,4,15],[42,26,2,19],[41,101,7,45],[42,15,1,5],[43,173,16,33],[46,9,0,24],[38,74,6,34],[41,26,2,45],[43,20,1,50],[42,117,9,18],[40,82,6,4],[43,42,3,32],[46,161,14,5],[46,49,4,47],[45,145,12,45],[44,172,15,56],[46,126,10,21],[43,74,6,20],[45,110,8,44],[42,29,2,17],[39,147,13,43],[45,23,1,49],[45,55,4,22],[40,70,5,37],[40,116,9,52],[42,75,6,44],[41,182,17,49],[43,122,9,44],[40,21,1,28],[43,134,11,41],[40,159,14,15],[43,174,16,0],[39,110,8,21],[44,40,3,52],[41,47,4,20],[45,30,2,40],[46,10,0,45],[42,167,15,19],[40,182,17,47],[41,165,15,33],[38,15,1,9],[45,10,0,6],[45,29,2,16],[40,165,15,40],[39,16,1,15],[42,115,9,12],[41,71,5,52],[38,109,8,2],[45,157,14,30],[40,39,3,48],[43,90,7,48],[45,51,4,27],[42,74,6,47],[44,75,6,54],[46,8,0,44],[39,11,0,16],[41,12,0,55],[39,151,13,12],[45,62,5,1],[40,54,4,41],[43,92,7,12],[41,126,10,14],[46,11,0,45],[42,142,12,10],[44,80,6,4],[43,44,3,41],[40,171,15,53],[44,100,7,55],[45,112,8,34],[42,11,0,52],[40,124,10,13],[40,121,9,34],[43,63,5,10],[43,5,0,13],[38,65,5,52],[41,164,15,3],[43,76,6,55],[46,170,15,52],[38,49,4,42],[43,98,7,49],[43,67,5,15],[42,161,14,51],[45,162,14,46],[39,75,6,11],[42,80,6,13],[38,185,17,31],[43,62,5,30],[45,141,12,23],[42,57,4,8],[42,28,2,13],[45,184,17,22],[46,168,15,4],[43,169,15,11],[43,12,0,34],[42,40,3,42],[42,47,4,16],[40,98,7,12],[42,110,8,15],[46,30,2,7],[39,181,17,0],[40,99,7,36],[43,26,2,20],[44,46,4,36],[46,125,10,16],[42,69,5,36],[44,25,2,12],[46,144,12,20],[41,72,5,50],[41,66,5,27],[42,55,4,29],[42,78,6,25],[42,61,5,50],[44,149,13,31],[40,36,3,3],[39,65,5,11],[40,172,15,27],[44,60,5,46],[45,43,3,46],[46,162,14,17],[41,121,9,26],[46,173,16,16],[41,174,16,49],[46,7,0,42],[38,166,15,28],[39,144,12,30],[41,11,0,43],[41,36,3,51],[45,128,10,51],[40,181,17,23],[45,12,0,46],[44,121,9,4],[43,79,6,42],[40,173,16,16],[39,47,4,43],[40,65,5,49],[43,27,2,24],[44,27,2,24],[43,131,10,37],[43,175,16,19],[46,44,3,54],[41,57,4,51],[43,4,0,23],[40,60,5,42],[42,125,10,0],[43,75,6,19],[43,69,5,11],[39,153,13,54],[40,138,11,49],[41,124,10,18],[42,76,6,7],[41,39,3,51],[40,72,5,11],[45,175,16,2],[43,187,17,38],[40,55,4,36],[45,56,4,21],[41,150,13,51],[40,38,3,46],[41,137,11,26],[41,100,7,29],[46,151,13,52],[39,53,4,41],[41,4,0,50],[43,11,0,11],[40,24,2,4],[43,149,13,39],[40,49,4,20],[39,113,9,19],[39,171,15,51],[43,124,10,33],[40,139,11,8],[44,69,5,3],[42,102,7,2],[45,182,17,26],[42,144,12,5],[43,168,15,54],[43,181,17,23],[42,187,17,53],[42,170,15,24],[39,49,4,30],[44,62,5,55],[42,164,15,32],[41,29,2,22],[42,19,1,28],[46,111,8,11],[38,75,6,43],[44,118,9,13],[38,36,3,40],[44,115,9,0],[40,14,1,33],[44,15,1,42],[44,150,13,53],[43,125,10,9],[41,6,0,49],[40,140,11,4],[46,183,17,8],[42,157,14,7],[40,47,4,29],[40,17,1,12],[44,23,1,52],[43,60,5,7],[42,182,17,14],[45,168,15,4],[43,118,9,2],[38,50,4,48],[42,83,6,38],[44,82,6,41],[43,93,7,50],[44,170,15,11],[39,125,10,41],[39,82,6,37],[45,100,7,50],[45,144,12,3],[39,152,13,46],[45,47,4,29],[46,42,3,8],[42,64,5,28],[41,13,1,15],[42,93,7,15],[41,35,3,14],[41,74,6,11],[44,171,15,2],[41,181,17,42],[42,119,9,43],[43,138,11,41],[39,51,4,7],[45,70,5,54],[40,67,5,21],[43,156,14,54],[43,115,9,18],[43,95,7,43],[40,46,4,15],[44,157,14,52],[42,109,8,3],[43,150,13,35],[40,16,1,19],[41,173,16,27],[46,55,4,8],[45,111,8,15],[40,115,9,7],[40,122,9,32],[41,25,2,48],[38,152,13,26],[44,4,0,22],[43,101,7,52],[46,51,4,46],[41,170,15,17],[46,54,4,51],[45,150,13,31],[43,127,10,29],[42,14,1,47],[39,43,3,41],[40,22,1,54],[44,155,14,9],[41,65,5,18],[44,160,14,55],[42,180,17,20],[43,80,6,39],[45,171,15,42],[41,68,5,16],[46,186,17,0],[44,35,3,45],[42,126,10,28],[38,121,9,38],[45,48,4,0],[42,127,10,7],[42,151,13,31],[45,49,4,52],[45,142,12,45],[43,13,1,21],[39,33,2,8],[43,126,10,51],[45,44,3,12],[41,171,15,52],[38,52,4,19],[42,121,9,21],[44,45,4,8],[43,137,11,54],[43,121,9,36],[39,116,9,12],[42,169,15,50],[39,55,4,31],[39,146,13,34],[40,144,12,34],[46,128,10,0],[43,136,11,23],[40,63,5,55],[45,183,17,11],[44,99,7,22],[44,138,11,2],[39,76,6,32],[39,164,15,45],[38,83,6,4],[44,180,17,2],[44,41,3,5],[43,143,12,1],[43,41,3,23],[41,16,1,15],[40,100,7,19],[40,44,3,49],[44,151,13,38],[42,135,11,15],[39,134,11,13],[44,48,4,4],[42,17,1,15],[38,115,9,43],[44,31,2,50],[41,18,1,45],[42,18,1,33],[46,62,5,33],[42,39,3,20],[43,161,14,39],[43,46,4,12],[41,84,6,47],[43,71,5,13],[38,26,2,53],[40,83,6,7],[46,21,1,26],[41,114,9,43],[42,174,16,54],[42,113,9,41],[41,123,9,7],[42,131,10,52],[43,97,7,17],[46,123,9,13],[43,68,5,16],[45,174,16,25],[44,156,14,1],[40,23,1,55],[45,120,9,2],[45,108,8,11],[44,68,5,26],[41,24,2,11],[39,174,16,17],[44,67,5,29],[44,19,1,52],[41,109,8,41],[42,139,11,22],[38,51,4,8],[45,170,15,6],[45,125,10,13],[46,141,12,36],[44,114,9,47],[39,25,2,32],[46,149,13,16],[41,115,9,1],[45,83,6,9],[46,69,5,32],[40,75,6,15],[42,114,9,25],[38,132,11,19],[41,172,15,42],[38,43,3,22],[39,77,6,36],[43,14,1,21],[45,24,2,32],[45,169,15,32],[41,133,11,55],[40,78,6,30],[41,46,4,47],[45,42,3,18],[46,109,8,25],[39,186,17,24],[38,149,13,23],[46,84,6,19],[41,139,11,48],[42,68,5,0],[42,60,5,44],[42,70,5,53],[45,167,15,12],[43,35,3,35],[44,11,0,37],[40,29,2,45],[42,92,7,47],[43,45,4,40],[42,13,1,12],[40,56,4,36],[41,111,8,6],[43,78,6,32],[44,122,9,27],[45,126,10,17],[39,182,17,17],[38,143,12,42],[40,26,2,23],[44,81,6,37],[43,182,17,7],[45,11,0,20],[43,129,10,38],[46,82,6,37],[45,137,11,56],[38,53,4,14],[43,151,13,32],[43,157,14,44],[41,138,11,53],[42,50,4,6],[43,170,15,46],[41,83,6,1],[46,24,2,22],[45,41,3,5],[43,23,1,31],[45,180,17,36],[45,69,5,38],[43,120,9,43],[46,5,0,38],[39,170,15,47],[44,61,5,50],[45,179,16,34],[43,184,17,53],[45,177,16,52],[42,62,5,18],[42,184,17,10],[38,22,1,37],[44,111,8,23],[41,17,1,44],[40,174,16,25],[39,66,5,1],[40,125,10,55],[40,109,8,1],[45,25,2,15],[43,52,4,23],[43,100,7,35],[39,54,4,6],[41,143,12,30],[43,43,3,0],[45,122,9,0],[42,79,6,17],[39,32,2,43],[45,129,10,6],[46,180,17,22],[42,173,16,2],[44,24,2,14],[45,156,14,56],[38,32,2,15],[43,186,17,20],[43,142,12,38],[41,59,5,16],[39,158,14,54],[43,21,1,11],[46,145,12,14],[43,83,6,37],[40,25,2,34],[38,173,16,14],[38,114,9,5],[42,165,15,27],[44,123,9,29],[46,108,8,27],[44,47,4,50],[43,39,3,42],[43,70,5,10],[40,84,6,39],[43,6,0,21],[40,175,16,34],[46,50,4,24],[38,168,15,20],[44,120,9,9],[41,45,4,39],[41,63,5,12],[43,165,15,23],[38,147,13,44],[44,30,2,55],[44,21,1,55],[39,21,1,17],[38,144,12,53],[42,129,10,24],[38,124,10,56],[38,13,1,49],[41,60,5,19],[45,52,4,43],[39,44,3,11],[38,133,11,11],[45,5,0,14],[46,83,6,52],[42,100,7,38],[46,146,13,25],[39,115,9,36],[43,55,4,13],[42,12,0,46],[45,84,6,13],[38,44,3,21],[44,55,4,28],[43,167,15,52],[45,68,5,29],[45,178,16,10],[42,63,5,41],[41,99,7,45],[41,180,17,8],[43,159,14,43],[46,136,11,30],[45,80,6,20],[38,31,2,15],[44,113,9,26],[40,4,0,10],[46,33,2,42],[44,5,0,44],[40,5,0,30],[38,183,17,6],[39,150,13,38],[38,151,13,38],[42,175,16,30],[41,125,10,22],[40,37,3,39],[39,36,3,46],[40,48,4,24],[44,143,12,4],[43,47,4,31],[46,174,16,3],[40,11,0,11],[42,91,7,53],[41,117,9,9],[45,181,17,34],[43,123,9,1],[45,9,0,46],[40,111,8,0],[43,160,14,20],[42,166,15,22],[42,94,7,51],[42,67,5,9],[45,21,1,24],[41,15,1,22],[44,83,6,7],[40,160,14,22],[39,173,16,35],[41,23,1,6],[45,176,16,33],[42,181,17,16],[46,110,8,42],[45,99,7,8],[39,166,15,50],[38,165,15,7],[43,130,10,11],[45,155,14,34],[40,64,5,23],[42,168,15,6],[44,42,3,47],[46,175,16,25],[39,35,3,40],[46,184,17,3],[44,26,2,40],[39,142,12,17],[43,84,6,30],[42,66,5,18],[41,56,4,42],[39,23,1,49],[43,57,4,33],[42,134,11,9],[42,90,7,36],[44,101,7,35],[43,81,6,16],[42,84,6,23],[43,91,7,56],[43,119,9,45],[39,48,4,45],[44,98,7,19],[42,160,14,45],[46,129,10,49],[45,161,14,17],[38,66,5,49],[44,109,8,4],[46,127,10,54],[43,103,7,0],[39,22,1,0],[40,76,6,21],[41,144,12,33],[40,180,17,14],[46,124,10,23],[42,51,4,9],[45,124,10,4],[42,143,12,51],[41,37,3,34],[38,169,15,8],[46,121,9,17],[41,134,11,20],[41,64,5,14],[43,28,2,1],[46,176,16,40],[46,31,2,46],[45,7,0,34],[43,24,2,45],[41,157,14,50],[42,82,6,56],[44,125,10,19],[41,149,13,26],[41,38,3,7],[39,168,15,37],[45,98,7,25],[40,123,9,43],[46,167,15,51],[45,53,4,18],[44,119,9,30],[38,150,13,21],[46,48,4,48],[45,61,5,43],[44,76,6,7],[46,52,4,47],[42,116,9,34],[40,77,6,55],[46,61,5,53],[40,31,2,10],[41,21,1,7],[40,32,2,40],[46,171,15,43],[43,99,7,16],[43,183,17,47],[42,124,10,7],[44,110,8,36],[44,36,3,13],[38,123,9,46],[45,119,9,15],[40,30,2,10],[45,32,2,8],[45,31,2,40],[46,32,2,14],[44,135,11,34],[43,135,11,9],[44,136,11,5],[42,159,14,5],[41,159,14,56],[42,158,14,8],[42,183,17,54]],"atlas":"data:image/png;base64,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"};
+
+// ---------- fixed layout (locked in the spec)
+var W = 1920, H = 1080, CW = 10, CH = 14, NC = 192, NR = 77, NCELL = NC * NR;
+var NRAND = DATA.nrand, NGLYPH = DATA.chars.length;
+var ANCHOR = Date.UTC(2026, 9, 1, 0, 0, 0);          // fixed zero for all the maths, well before the run
+var PT_OFFSET_H = -7;                                // Pacific daylight time for the whole run
+
+// ---------- preview switches (piece 1 only): ?lock=0..100  ?at=2026-10-20T03:00 (Pacific)
+var Q = new URLSearchParams(location.search);
+var LOCK_PCT = Q.has('lock') ? Math.max(0, Math.min(100, parseFloat(Q.get('lock')))) : 100;
+var T_SHIFT = 0;
+if (Q.has('at')) { var d0 = Date.parse(Q.get('at') + '-07:00'); if (!isNaN(d0)) T_SHIFT = d0 - Date.now(); }
+function nowMs() { return Date.now() + T_SHIFT; }
+
+// ---------- deterministic noise: same answer for the same inputs, on any machine, after any reload
+function hi(a, b) {
+  var h = Math.imul(a ^ 0x9E3779B9, 0x85EBCA6B) ^ Math.imul(b + 0x7F4A7C15, 0xC2B2AE35);
+  h ^= h >>> 15; h = Math.imul(h, 0x2C1B3C6D); h ^= h >>> 12; h = Math.imul(h, 0x297A2D39); h ^= h >>> 15;
+  return h >>> 0;
+}
+function hf(a, b) { return hi(a, b) / 4294967296; }
+
+// ---------- daylight: brighter and faster by day, dimmer and slower at night (same curve as the sampler)
+function daylight(hr) { var v = (Math.cos(2 * Math.PI * (hr - 12.6) / 24) + 0.2) / 0.6; return v < 0 ? 0 : v > 1 ? 1 : v; }
+var CUM = new Float64Array(1441), DAYSUM;
+(function () { var s = 0; CUM[0] = 0; for (var m = 0; m < 1440; m++) { s += daylight((((m + 0.5) / 60 + PT_OFFSET_H) % 24 + 24) % 24) * 60; CUM[m + 1] = s; } DAYSUM = s; })();
+function daylightIntegral(T) {                       // seconds of "daylight" accumulated since ANCHOR
+  var day = Math.floor(T / 86400), s = T - day * 86400, m = s / 60, i = Math.floor(m);
+  return day * DAYSUM + CUM[i] + (CUM[Math.min(1440, i + 1)] - CUM[i]) * (m - i);
+}
+
+// ---------- per-column and per-cell constants
+var colH0 = new Float64Array(NC), colSpd = new Float64Array(NC);
+for (var x = 0; x < NC; x++) { colH0[x] = hf(x, 11) * NR * 2; colSpd[x] = 7 + 17 * hf(x, 12); }
+var cellRate = new Float32Array(NCELL), cellPh = new Float32Array(NCELL), cnRate = new Float32Array(NCELL), cnPh = new Float32Array(NCELL);
+for (var i = 0; i < NCELL; i++) { cellRate[i] = 0.6 + 0.8 * hf(i, 21); cellPh[i] = hf(i, 22); cnRate[i] = 0.3 * (0.6 + 0.8 * hf(i, 23)); cnPh[i] = hf(i, 24); }
+
+// ---------- title cells, in lock order
+var ORDER = DATA.order, NT = ORDER.length;
+var lockIdx = new Int32Array(NCELL).fill(-1), frz = new Uint8Array(NCELL);
+for (var k = 0; k < NT; k++) { var o = ORDER[k], ci = o[0] * NC + o[1]; lockIdx[ci] = k; frz[ci] = o[3]; }
+function lockedCount() { return Math.round(NT * LOCK_PCT / 100); }   // piece 3 replaces this with the real pace
+
+// ---------- WebGL
+var cv = document.getElementById('c');
+var gl = cv.getContext('webgl', { alpha: false, antialias: false, depth: false, stencil: false, preserveDrawingBuffer: false, powerPreference: 'high-performance' });
+cv.addEventListener('webglcontextlost', function (e) { e.preventDefault(); setTimeout(function () { location.reload(); }, 1000); });
+
+var VS = 'attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}';
+var CELLFN =
+  'precision highp float;uniform sampler2D uData,uAtlas;' +
+  'vec2 cellAt(vec2 p){' +                                    // returns (base, lock) light for one full-res pixel, p measured from the top left
+  ' vec2 c=floor(p/vec2(' + CW + '.,' + CH + '.));if(c.y>=' + NR + '.||c.x>=' + NC + '.)return vec2(0.);' +
+  ' vec4 d=texture2D(uData,(c+.5)/vec2(' + NC + '.,' + NR + '.));' +
+  ' float ch=floor(d.r*255.+.5);vec2 s=p-c*vec2(' + CW + '.,' + CH + '.);' +
+  ' float g=texture2D(uAtlas,vec2((ch*' + CW + '.+s.x)/' + (NGLYPH * CW) + '.,s.y/' + CH + '.)).r;' +
+  ' return vec2(g*d.g,g*d.b*4.25);}';
+var FS_LOCK = CELLFN +                                        // lock layer at half size, each pixel the true average of 4
+  'void main(){vec2 q=vec2(gl_FragCoord.x,' + (H / 2) + '.-gl_FragCoord.y)*2.;' +
+  ' float l=cellAt(q+vec2(-.5,-.5)).y+cellAt(q+vec2(.5,-.5)).y+cellAt(q+vec2(-.5,.5)).y+cellAt(q+vec2(.5,.5)).y;' +
+  ' gl_FragColor=vec4(vec3(l*.25/4.25),1.);}';
+var FS_DOWN = 'precision highp float;uniform sampler2D uT;uniform vec2 uPx,uSize;' +
+  'void main(){vec2 u=gl_FragCoord.xy/uSize;gl_FragColor=.25*(texture2D(uT,u+uPx*vec2(-1.,-1.))+texture2D(uT,u+uPx*vec2(1.,-1.))+texture2D(uT,u+uPx*vec2(-1.,1.))+texture2D(uT,u+uPx*vec2(1.,1.)));}';
+var FS_BLUR = 'precision highp float;uniform sampler2D uT;uniform vec2 uDir,uSize;uniform float uSig;' +
+  'void main(){vec2 u=gl_FragCoord.xy/uSize;float s=0.;vec4 a=vec4(0.);for(int i=-16;i<=16;i++){float f=float(i);float w=exp(-f*f/(2.*uSig*uSig));a+=texture2D(uT,u+uDir*f)*w;s+=w;}gl_FragColor=a/s;}';
+var FS_MAIN = CELLFN + 'uniform sampler2D uS,uL;' +
+  'void main(){vec2 p=vec2(gl_FragCoord.x,' + H + '.-gl_FragCoord.y);vec2 v=cellAt(p);vec2 u=gl_FragCoord.xy/vec2(' + W + '.,' + H + '.);' +
+  ' float glow=(.55*texture2D(uS,u).r+.45*texture2D(uL,u).r)*4.25;' +
+  ' float o=v.x+glow+clamp(v.y-1.,0.,3.)*(120./255.);gl_FragColor=vec4(vec3(o),1.);}';
+
+function prog(fs) {
+  function sh(t, s) { var o = gl.createShader(t); gl.shaderSource(o, s); gl.compileShader(o); if (!gl.getShaderParameter(o, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(o)); return o; }
+  var p = gl.createProgram(); gl.attachShader(p, sh(gl.VERTEX_SHADER, VS)); gl.attachShader(p, sh(gl.FRAGMENT_SHADER, fs)); gl.bindAttribLocation(p, 0, 'a'); gl.linkProgram(p);
+  if (!gl.getProgramParameter(p, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(p));
+  var u = {}, n = gl.getProgramParameter(p, gl.ACTIVE_UNIFORMS); for (var i = 0; i < n; i++) { var inf = gl.getActiveUniform(p, i); u[inf.name] = gl.getUniformLocation(p, inf.name); }
+  return { p: p, u: u };
+}
+function tex(w, h, filter, data, fmt) {
+  var t = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, filter); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, filter);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  if (w) gl.texImage2D(gl.TEXTURE_2D, 0, fmt || gl.RGBA, w, h, 0, fmt || gl.RGBA, gl.UNSIGNED_BYTE, data || null);
+  return t;
+}
+function target(w, h) { var t = tex(w, h, gl.LINEAR), f = gl.createFramebuffer(); gl.bindFramebuffer(gl.FRAMEBUFFER, f); gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, t, 0); return { t: t, f: f, w: w, h: h }; }
+
+var P_LOCK, P_DOWN, P_BLUR, P_MAIN, T_DATA, T_ATLAS, R_HALF, R_HTMP, R_SMALL, R_EIGHTH, R_ETMP, R_LARGE;
+var buf = new Uint8Array(NCELL * 4);
+var lastLocked = -1, lastDraw = 0, drawn = 0;
+if (Q.has('fps')) { var fpsEl = document.getElementById('fps'); fpsEl.style.display = 'block'; setInterval(function () { fpsEl.textContent = drawn + ' FPS'; drawn = 0; }, 1000); }
+
+function bind(unit, t) { gl.activeTexture(gl.TEXTURE0 + unit); gl.bindTexture(gl.TEXTURE_2D, t); }
+function pass(P, dst, setup) {
+  gl.bindFramebuffer(gl.FRAMEBUFFER, dst ? dst.f : null); gl.viewport(0, 0, dst ? dst.w : W, dst ? dst.h : H);
+  gl.useProgram(P.p); setup(P.u); gl.drawArrays(gl.TRIANGLES, 0, 3);
+}
+function rebuildGlow() {                                      // only runs when the set of lit title cells changes
+  pass(P_LOCK, R_HALF, function (u) { bind(0, T_DATA); bind(1, T_ATLAS); gl.uniform1i(u.uData, 0); gl.uniform1i(u.uAtlas, 1); });
+  function blur(src, tmp, dst, sig) {
+    pass(P_BLUR, tmp, function (u) { bind(0, src.t); gl.uniform1i(u.uT, 0); gl.uniform2f(u.uSize, tmp.w, tmp.h); gl.uniform2f(u.uDir, 1 / src.w, 0); gl.uniform1f(u.uSig, sig); });
+    pass(P_BLUR, dst, function (u) { bind(0, tmp.t); gl.uniform1i(u.uT, 0); gl.uniform2f(u.uSize, dst.w, dst.h); gl.uniform2f(u.uDir, 0, 1 / tmp.h); gl.uniform1f(u.uSig, sig); });
+  }
+  blur(R_HALF, R_HTMP, R_SMALL, 2.0);                         // the sampler's tight glow (4 px at full size)
+  pass(P_DOWN, R_EIGHTH, function (u) { bind(0, R_HALF.t); gl.uniform1i(u.uT, 0); gl.uniform2f(u.uSize, R_EIGHTH.w, R_EIGHTH.h); gl.uniform2f(u.uPx, 1 / R_HALF.w, 1 / R_HALF.h); });
+  blur(R_EIGHTH, R_ETMP, R_LARGE, 2.75);                      // the sampler's wide glow (22 px at full size)
+}
+
+function frame() {
+  requestAnimationFrame(frame);
+  var ms = nowMs(); if (ms - lastDraw < 30 && ms >= lastDraw) return; lastDraw = ms; drawn++;      // hold to about 30 frames a second
+  var T = (ms - ANCHOR) / 1000;
+  var hr = ((T / 3600 + PT_OFFSET_H) % 24 + 24) % 24, dl = daylight(hr);
+  var D = daylightIntegral(T), travel = 0.45 * T + 0.55 * D, churn = 30 * (0.05 * T + 0.09 * D), level = 0.42 + 0.36 * dl;
+  var nLock = lockedCount(), span = NR * 2;
+  for (var x = 0; x < NC; x++) {
+    var hp = (colH0[x] + colSpd[x] * travel) % span;
+    for (var y = 0; y < NR; y++) {
+      var i = y * NC + x, j = i * 4, li = lockIdx[i];
+      if (li >= 0 && li < nLock) { buf[j] = frz[i]; buf[j + 1] = 255; buf[j + 2] = 60; buf[j + 3] = 255; continue; }   // locked: frozen character, full white
+      var d = hp - y; if (d < 0) d += span;
+      var b = d < 1 ? 0.95 : (d < NR ? (40 + 190 * Math.exp(-d / (NR / 9))) / 255 : 0.12) * (0.6 + 0.4 * hf(i, Math.floor(cnPh[i] + T * cnRate[i]) ^ 0x51ED));
+      buf[j] = hi(i, Math.floor(cellPh[i] + churn * cellRate[i])) % NRAND; buf[j + 1] = b * level * 255; buf[j + 2] = 0; buf[j + 3] = 255;
+    }
+  }
+  bind(0, T_DATA); gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, NC, NR, gl.RGBA, gl.UNSIGNED_BYTE, buf);
+  if (nLock !== lastLocked) { rebuildGlow(); lastLocked = nLock; }
+  pass(P_MAIN, null, function (u) { bind(0, T_DATA); bind(1, T_ATLAS); bind(2, R_SMALL.t); bind(3, R_LARGE.t); gl.uniform1i(u.uData, 0); gl.uniform1i(u.uAtlas, 1); gl.uniform1i(u.uS, 2); gl.uniform1i(u.uL, 3); });
+}
+
+function start(img) {
+  gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
+  P_LOCK = prog(FS_LOCK); P_DOWN = prog(FS_DOWN); P_BLUR = prog(FS_BLUR); P_MAIN = prog(FS_MAIN);
+  var vb = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, vb); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+  gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+  T_DATA = tex(NC, NR, gl.NEAREST);
+  T_ATLAS = tex(0, 0, gl.NEAREST); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
+  R_HALF = target(W / 2, H / 2); R_HTMP = target(W / 2, H / 2); R_SMALL = target(W / 2, H / 2);
+  R_EIGHTH = target(W / 8, H / 8); R_ETMP = target(W / 8, H / 8); R_LARGE = target(W / 8, H / 8);
+  requestAnimationFrame(frame);
+}
+if (gl) { var img = new Image(); img.onload = function () { start(img); }; img.src = DATA.atlas; }
+</script>
+</body>
+</html>
