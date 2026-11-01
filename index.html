@@ -589,7 +589,7 @@ var END_CUT = RUN_END + 10000;                         // 2:25:00: the hold ends
 // each one a little further than the last. The boot's whole start-up sound runs once at the very end and finishes on the Day 1 cut.
 // v24: on air Day 1 moves to Sun 11/1. The start-up that was meant to finish at 2:25pm on 10/25 gets to the very end and dies; the bar drops,
 // the character rain starts, and the stall runs another week of hourly failed start-ups (with the rain and its sound) until the real one on 11/1.
-var DAY1 = Date.parse('2026-11-01T14:25:00-08:00');       // Day 1 on air (Sun 11/1, Pacific STANDARD time): the load finishes, the page goes see-through
+var DAY1 = Date.parse('2026-11-01T20:25:00-08:00');       // Day 1 on air (Sun 11/1, Pacific STANDARD time; moved from 2:25pm to 8:25pm): the load finishes, the page goes see-through
 var FAKE0 = Date.parse('2026-10-25T14:24:08-07:00');      // the start-up that should have been the real one: whole boot sound, dies at the very end
 var FAKE_REACH = 50.6, FAKE_DEAD = 4.0;                   // seconds it survives (bar to ~97%), then seconds of black before the words come back
 var FAKE_DIE = FAKE0 + FAKE_REACH * 1000;                 // the moment it dies
